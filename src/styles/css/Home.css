@@ -1,0 +1,14 @@
+.card {
+  transition: transform 0.3s ease-in-out; /* Durée de 0.3s et fonction ease-in-out pour un effet fluide */
+}
+
+.card:hover {
+  transform: scale(1.1); /* Agrandir de 10% */
+}
+
+.bouton-perso{
+  transition: transform 0.7 ease;
+}
+.bouton-perso:hover{
+  transform: scale(1.1);
+}
