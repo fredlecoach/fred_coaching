@@ -10,6 +10,7 @@ import ECoaching from './E-Coaching';
 import { programmes, debutantProgram, intermediaireProgram, avanceProgram, expertProgram } from '../utils/Programmes';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PersonalTraining from './PersonaTraining';
+import Tarifs from './Tarifs';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/expert" element= { <Expert expertProgram={expertProgram} />} />
           <Route path='/e-coaching' element={ <ECoaching />} />
           <Route path='/personal_training' element={ <PersonalTraining />} />
+          <Route path="/tarifs" element={ <Tarifs />} />
         </Routes>
       <Footer />
     </Router>
