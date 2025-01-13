@@ -1,9 +1,10 @@
 import '../styles/css/Home.css';
 import unique from '../styles/images/unique.jpg'
-import { Bouton } from '../utils/boutons'
+// import { Bouton } from '../utils/boutons'
 import personal_training from '../styles/images/personal_training.jpg';
 import coaching_ligne from '../styles/images/coaching_ligne.jpg';
 import repas from '../styles/images/repas.jpg'
+import { Link } from 'react-router-dom';
 
 export default function Home({ programmes }) {
   // Définir les couleurs par niveau
@@ -22,25 +23,26 @@ export default function Home({ programmes }) {
             const titleColor = levelColors[p.niveau] || '#000'; // Noir par défaut
 
             return (
-              <div className="col" key={p.id}> {/* Utilisation de .col pour les cartes */}
-                <div className="card h-100 shadow-sm"> {/* h-100 pour uniformiser les hauteurs */}
-                  <img
-                    src={p.image}
-                    alt={`Illustration du niveau ${p.niveau}`}
-                    className="card-img-top img-fluid w-100 object-fit-cover" // Remplacement par img-fluid
-                    // style={{ objectFit: 'cover', height: '200px' }} // Contrôle du redimensionnement
-                  />
-                  <div className="card-body">
-                    <h2 className="card-title" style={{ color: titleColor }}>
-                      {p.niveau.toUpperCase()}
-                    </h2>
-                    <ul className="list-unstyled">
-                      <li><strong>Durée :</strong> {p.duree}</li>
-                      <li className="card-text"><strong>Sportifs :</strong> {p.description}</li>
-                    </ul>
-                    <button className="btn btn-dark">Découvrir</button>
+              <div className="col" key={p.id}>
+                <Link to={p.lien} className='text-decoration-none'>
+                  <div className="card h-100 shadow-sm"> {/* h-100 pour uniformiser les hauteurs */}
+                    <img
+                      src={p.image}
+                      alt={`Illustration du niveau ${p.niveau}`}
+                      className="card-img-top img-fluid w-100 object-fit-cover" // Remplacement par img-fluid
+                      // style={{ objectFit: 'cover', height: '200px' }} // Contrôle du redimensionnement
+                    />
+                    <div className="card-body">
+                      <h2 className="card-title" style={{ color: titleColor }}>
+                        {p.niveau.toUpperCase()}
+                      </h2>
+                      <ul className="list-unstyled">
+                        <li><strong>Durée :</strong> {p.duree}</li>
+                        <li className="card-text"><strong>Sportifs :</strong> {p.description}</li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             );
           })}
@@ -60,11 +62,10 @@ export default function Home({ programmes }) {
         </div>
         <div className="col" style={{lineHeight: "40px", textAlign: "justify"}}>
           <p>Nous sommes tous différents, avec des morphologies variées, des métabolismes qui fonctionnent de manière distincte, des niveaux d'expérience divers, et des parcours de vie uniques. Même si certains points communs peuvent être observés entre individus, chaque personne possède des spécificités qui la rendent unique. C'est pourquoi chacun mérite un programme personnalisé, conçu en fonction de ses capacités, de ses besoins, et de ses disponibilités. Cette approche sur mesure permet de respecter l'individualité de chacun tout en maximisant les chances d'atteindre ses objectifs de manière saine et efficace. <br/>
-          <span className='fw-bold'>Pour découvrir les programmes et ma manière de travailler, il faut juste cliquer !</span>  
+          <span className='fw-bold'>Pour découvrir mes formules et ma manière de travailler, il faut juste cliquer !</span>  
           </p>
           <div className='d-flex justify-content-end'>
-            {/* <button className='btn btn-dark py-3 px-4'>Découvrir <i className='bi bi-caret-right'></i> </button> */}
-            <Bouton />
+            <Link to="/e-coaching" ><button className='btn btn-dark px-4 py-3'>Découvrir <i className='bi bi-caret-right'></i></button></Link>
           </div>
         </div>
       </div>
@@ -86,7 +87,7 @@ export default function Home({ programmes }) {
               <p className='card-text' style={{textAlign: "justify"}}>Je viens à vous, directement à votre domicile ou sur n'importe quel lieu de votre choix en fonction de vos disponibiltés. Bénéficiez d'un programme personnalisé, conçu en fonction de vos besoins et de vos capacités avec un suivi physique et nutrionnel continu.
               </p>
               <div className='d-flex justify-content-center'>
-                <Bouton />
+                <Link to="/personal_training"><button className='btn btn-dark py-3 px-4'>Découvrir <i className='bi bi-caret-right'></i></button></Link>
               </div>
             </div>
           </div>
@@ -100,7 +101,7 @@ export default function Home({ programmes }) {
               <p className='card-text' style={{textAlign: "justify"}}>On se rencontre en ligne, au téléphone ou en visio. Nous faisons un point sur votre passé sportif ou non au moyen d'un bilan de forme. À la suite de ce rendez-vous, je vous prépare un programme sportif personnalisé évolutif en fonction de vos progrès. Bénéficiez également de conseils nutritionnels tout au long de votre coaching.
               </p>
               <div className='d-flex justify-content-center'>
-                <Bouton />
+                <Link to="/e-coaching"><button className='btn btn-dark py-3 px-4'>Découvrir <i className='bi bi-caret-right'></i></button></Link>
               </div>
             </div>
           </div>
@@ -120,7 +121,7 @@ export default function Home({ programmes }) {
           La préparation des repas peut également devenir un véritable casse-tête : savoir quoi manger, à quel moment, comment gérer un repas au restaurant ou une invitation chez des amis... Toutes ces interrogations peuvent compliquer votre parcours.
           C'est pourquoi je suis là pour vous accompagner. Je vous propose un planning de repas hebdomadaire clair et simple à suivre, conçu pour répondre à vos besoins et vous permettre d'atteindre vos objectifs sans stress ni prise de tête.
           </p>
-          <Bouton />
+          <Link to="/dietetique"><button className='btn btn-dark py-3 px-4'>Découvrir <i className='bi bi-caret-right'></i></button></Link>
         </div>
         {/* 2 eme colonne */}
         <div className='col'>

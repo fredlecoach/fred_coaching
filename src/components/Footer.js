@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
-  const [selectedLevel, setSelectedLevel] = useState(null);
 
   // Liste des programmes par niveau
-  const programs = {
-    Débutants: ["KickOff 30", "BasicBurn", "MoveEasy"],
-    Intermédiaires: ["FitBurn 30", "PulseUp", "CorePower"],
-    Avancés: ["RageMode 30", "FireFlex", "IronCore"],
-    Experts: ["BeastMode 30", "EliteFit", "OlympianGod"],
-  };
+  // const programs = {
+  //   Débutants: ["KickOff 30", "BasicBurn", "MoveEasy"],
+  //   Intermédiaires: ["FitBurn 30", "PulseUp", "CorePower"],
+  //   Avancés: ["RageMode 30", "FireFlex", "IronCore"],
+  //   Experts: ["BeastMode 30", "EliteFit", "OlympianGod"],
+  // };
 
   return (
     <footer className="footer bg-light py-4">
@@ -19,38 +18,12 @@ export default function Footer() {
           {/* Les programmes */}
           <div className="footer-section mb-4">
             <h5 className="text-uppercase" style={{color: "goldenrod"}}>Les programmes</h5>
-            <div className="dropdown">
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {selectedLevel || "Sélectionner un niveau"}
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {Object.keys(programs).map((level) => (
-                  <li key={level}>
-                    <button
-                      className="dropdown-item text-primary"
-                      onClick={() => setSelectedLevel(level)}
-                    >
-                      {level}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Affichage des programmes par niveau */}
-            {selectedLevel && (
-              <ul className="list-unstyled mt-3">
-                {programs[selectedLevel].map((program) => (
-                  <li key={program}>{program}</li>
-                ))}
-              </ul>
-            )}
+            <ul>
+              <li className="list-unstyled"><Link className="text-decoration-none text-dark" to="/debutant"> 🔥 Débutant</Link></li>
+              <li className="list-unstyled"><Link className="text-decoration-none text-dark" to="/intermediaire">🔥🔥 Intermédiaire</Link></li>
+              <li className="list-unstyled"><Link className="text-decoration-none text-dark" to="avance"> 🔥🔥🔥 Avancé</Link></li>
+              <li className="list-unstyled"><Link className="text-decoration-none text-dark" to="/expert">🔥🔥🔥🔥 Expert</Link></li>
+            </ul>
           </div>
 
           {/* Contact */}

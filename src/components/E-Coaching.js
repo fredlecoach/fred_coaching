@@ -104,6 +104,10 @@ export default function ECoaching() {
           </div>
         </div>
       </div>
+      <div className="d-flex d-inline-block mt-5">
+        <h4>Découvrir l'autre formule</h4>
+        <Link to="/personal_training" className="mx-2"><button className="btn btn-warning fw-bold shadow">Le coaching à domicile </button></Link>
+      </div>
     </div>
   );
 }

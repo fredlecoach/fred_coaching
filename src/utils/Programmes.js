@@ -17,16 +17,40 @@ import god from "../styles/images/course.jpg"
 
 
 export const programmes =[
-  {id: 1, niveau: "Débutant", description: "Accessible à tous", tarif: 30, duree: "4 semaines", image: debutant},
-  {id: 2, niveau: "Intermédiaire", description: "Avec des bonnes bases", tarif: 50, duree: "8 semaines", image: intermediaire},
-  {id: 3, niveau: "Avancé", description: "En quête de performances", tarif: 80, duree: "12 semaines", image: avance},
-  {id: 4, niveau: "Expert", description: "En quête de défi", tarif: 80, duree: "16 semaines", image: expert},
+  {id: 1, niveau: "Débutant", description: "Accessible à tous", tarif: 30, duree: "4 semaines", image: debutant, lien: "/debutant"},
+  {id: 2, niveau: "Intermédiaire", description: "Avec des bonnes bases", tarif: 50, duree: "8 semaines", image: intermediaire, lien: "/intermediaire"},
+  {id: 3, niveau: "Avancé", description: "En quête de performances", tarif: 80, duree: "12 semaines", image: avance, lien: "/avance"},
+  {id: 4, niveau: "Expert", description: "En quête de défi", tarif: 80, duree: "16 semaines", image: expert, lien: "/expert"},
 ]
 
 export const debutantProgram = [
-  {name: "Kickoff 30", photo: kickOff, description: "Des entraînements de 20 mn vous sont proposés à réaliser sur la semaine. Le format 30 mn vous permet de brûler un maximum de calories en un minimum de temps. Si vous avez un planning chargé, ce format est idéal.", price: 30, duration: 20, difficulty : "🔥", level: "1++"},
-{name: "Basicburn", photo: basicBurn, description: "Un programme d'entraînement complet axé sur la combustion des graisses et le renforcement musculaire. Des séances accessibles à tous niveaux pour sculpter votre corps et améliorer votre endurance. Parfait pour retrouver la forme à votre rythme.", price: 25, duration: 45, difficulty : "🔥", level: "1+"},
-{name: "MoveEasy", photo: moveEasy, description: "Un programme doux et fluide conçu pour améliorer votre mobilité, votre souplesse et réduire les tensions musculaires. Idéal pour débuter ou reprendre une activité physique en douceur, tout en favorisant le bien-être général.", price: 20, duration: 30, difficulty : "🔥", level: "1" }
+  {
+    name: "Kickoff 30",
+    photo: kickOff, 
+    description: "Des entraînements de 20 mn vous sont proposés à réaliser sur la semaine. Le format 30 mn vous permet de brûler un maximum de calories en un minimum de temps. Si vous avez un planning chargé, ce format est idéal.", 
+    price: 30, 
+    duration: 20, 
+    difficulty : "🔥🔥", 
+    level: "1+++",
+    },
+  {
+    name: "Basicburn", 
+    photo: basicBurn, 
+    description: "Un programme d'entraînement complet axé sur la combustion des graisses et le renforcement musculaire. Des séances accessibles à tous niveaux pour sculpter votre corps et améliorer votre endurance. Parfait pour retrouver la forme à votre rythme.", 
+    price: 25, 
+    duration: 45, 
+    difficulty : "🔥", 
+    level: "1++"
+  },
+  {
+    name: "MoveEasy", 
+    photo: moveEasy, 
+    description: "Un programme doux et fluide conçu pour améliorer votre mobilité, votre souplesse et réduire les tensions musculaires. Idéal pour débuter ou reprendre une activité physique en douceur, tout en favorisant le bien-être général.", 
+    price: 20, 
+    duration: 30, 
+    difficulty : "🔥", 
+    level: "1"
+  }
 
 ]
 
@@ -39,7 +63,7 @@ export const intermediaireProgram = [
     price: 40,
     duration: 30,
     difficulty: "🔥🔥",
-    level: "2+"
+    level: "2+",
   },
   {
     name: "Pulse Up",
@@ -48,7 +72,7 @@ export const intermediaireProgram = [
     price: 45,
     duration: 45,
     difficulty: "🔥🔥",
-    level: "2++"
+    level: "2++",
   },
   {
     name: "CorePower",
@@ -70,7 +94,7 @@ export const avanceProgram = [
     price: 55,
     duration: 30,
     difficulty: "🔥🔥🔥",
-    level: "3+"
+    level: "3+",
   },
   {
     name: "FireFlex",
@@ -79,7 +103,7 @@ export const avanceProgram = [
     price: 60,
     duration: 45,
     difficulty: "🔥🔥🔥",
-    level: "3++"
+    level: "3++",
   },
   {
     name: "IronCore",
@@ -88,7 +112,7 @@ export const avanceProgram = [
     price: 65,
     duration: 50,
     difficulty: "🔥🔥🔥",
-    level: "3++"
+    level: "3++",
   }
 ];
 

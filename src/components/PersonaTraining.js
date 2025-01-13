@@ -9,8 +9,8 @@ export default function PersonalTraining() {
     <div className="container" style={{ marginBottom: "100px" }}>
       {/* Titre principal */}
       <div className="text-center mb-5">
-        <h2 className="display-4 fw-bold text-success">Personal Training à Domicile <i className="bi bi-house-door-fill"></i></h2>
-        <p className="lead">Un coaching sur-mesure, directement chez toi ou dans le lieu de ton choix !</p>
+        <h2 className="display-4 fw-bold" style={{color: "#dec950"}}>Home Coaching <i className="bi bi-house-door-fill"></i></h2>
+        <p className="lead">Un coaching sur-mesure, directement chez toi ou sur le lieu de ton choix !</p>
       </div>
 
       {/* Étapes du coaching */}
@@ -62,8 +62,16 @@ export default function PersonalTraining() {
             <div className="card-body">
               <h4 className="card-title">🏋️ Étape 3 : Séances d'entraînement personnalisées</h4>
               <p className="card-text">
-                J'organise des séances adaptées directement chez toi ou dans le lieu qui te convient. Les séances incluent :
+                J'organise des séances adaptées et on se retrouve sur le lieu de ton choix : 
               </p>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item"><i className="fa-solid fa-house"></i> À domicile</li>
+                <li className="list-group-item"><i className="fa-solid fa-briefcase"></i> Au bureau</li>
+                <li className="list-group-item"><i className="fa-solid fa-tree"></i> Dans un parc</li>
+                <li className="list-group-item"><i className="fa-solid fa-dumbbell"></i> En salle de sport</li>
+              </ul>
+            <br/>
+              <p>Les séances incluent :</p>
               <ul>
                 <li>📌 Programmes sur mesure en fonction de tes objectifs</li>
                 <li>💪 Matériel fourni si nécessaire</li>
@@ -102,6 +110,10 @@ export default function PersonalTraining() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="d-flex d-inline-block mt-5">
+        <h4>Découvrir l'autre formule</h4>
+        <Link to="/e-coaching" className="mx-2"><button className="btn btn-primary fw-bold shadow">Le Coaching à distance </button></Link>
       </div>
     </div>
   );
