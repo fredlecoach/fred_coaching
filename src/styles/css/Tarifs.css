@@ -6,6 +6,7 @@
 
 .btn-purple{
   background-color: purple;
+  margin-bottom: 50px;
 }
 .btn-purple:hover{
   background-color: rgb(172, 85, 172);
@@ -13,6 +14,7 @@
 
 .btn-or{
   background-color: #dec950;
+  margin-bottom: 50px;
 }
 .btn-or:hover{
   background-color: #9e903f;
@@ -22,6 +24,6 @@
   background-color: rgb(236, 236, 236);
 }
 
-.btn{
+.btn-red, .btn-green{
   margin-bottom: 50px;
 }

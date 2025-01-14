@@ -19,7 +19,7 @@ export default function Tarifs() {
                   <li className="list-group-item">Chaque niveau comprend 3 séances d'entraînements / semaine</li>
                   <li className="list-group-item">Des conseils nutritionnels</li>
                 </ul>
-                <button className="btn fw-bold btn-danger py-3 px-4">AJOUTER AU PANIER <i className="bi bi-caret-right"></i></button>
+                <button className="btn fw-bold btn-danger py-3 px-4 btn-red">AJOUTER AU PANIER <i className="bi bi-caret-right"></i></button>
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@ export default function Tarifs() {
                 <li className="list-group-item">Facilite l'atteinte de vos abjectifs</li>
                 <li className="list-group-item">Des repas sur mesure pour gérer le total calorique</li>
                 </ul>
-                <button className="btn fw-bold btn-success py-3 px-4">AJOUTER AU PANIER <i className="bi bi-caret-right"></i></button>
+                <button className="btn fw-bold btn-success btn-green py-3 px-4">AJOUTER AU PANIER <i className="bi bi-caret-right"></i></button>
               </div>
             </div>
           </div>
