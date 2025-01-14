@@ -12,7 +12,7 @@ export default function Tarifs() {
             <div className="text-center">
               <div className="card-body mx-2">
                 <h2 className="card-title bg-danger display-4 py-2 text-light" style={{fontFamily: "Rubik Mono One"}}>Programmes Fitness</h2>
-                <h3 className="card-title">Débutant - Intermédiaire - Avancé - Expert</h3>
+                <h3 className="card-title border text-light bg-dark py-1">Débutant - Intermédiaire - Avancé - Expert</h3>
                 <h4 className="card-text display-5 fw-bold text-danger"><i class="bi bi-patch-check"></i> 50 <i className="bi bi-currency-euro"></i> / programme</h4>
                 <ul className="list-unstyled list-group list-group-flush ">
                   <li className="list-group-item">Choix de niveau : Débutant à Expert</li>
@@ -29,7 +29,7 @@ export default function Tarifs() {
             <div className="text-center">
               <div className="card-body mx-2">
                 <h2 className="card-title bg-success display-4 py-2 text-light" style={{fontFamily: "Rubik Mono One"}}>Meal Planner</h2>
-                <h3 className="card-title">Planning repas mensuel</h3>
+                <h3 className="card-title border text-light bg-dark py-1">Planning repas mensuel</h3>
                 <h4 className="card-text display-5 fw-bold text-success"><i class="bi bi-patch-check"></i> 80 <i className="bi bi-currency-euro"></i> / mois sans engagement</h4>
                 <ul className="list-unstyled list-group list-group-flush ">
                 <li className="list-group-item">Chaque fin de semaine, recevez votre planning repas hebdomadaire</li>
@@ -46,7 +46,7 @@ export default function Tarifs() {
             <div className="text-center">
               <div className="card-body mx-2">
                 <h2 className="card-title display-4 py-2 text-light" style={{backgroundColor: "#dec950", fontFamily: "Rubik Mono One"}}>Home Coaching</h2>
-                <h3 className="card-title">Coach personnel à domicile</h3>
+                <h3 className="card-title border text-light bg-dark py-1">Coach personnel à domicile</h3>
                 <h4 className="card-text display-5 fw-bold" style={{ color:"#dec950" }}><i class="bi bi-patch-check"></i> 1300 <i className="bi bi-currency-euro"></i> / Forfait 20 séances</h4>
                 <ul className="list-unstyled list-group list-group-flush ">
                 <li className="list-group-item">Un bilan de forme gratuit</li>
@@ -68,7 +68,7 @@ export default function Tarifs() {
             <div className="text-center">
               <div className="card-body mx-2">
                 <h2 className="card-title display-4 py-2 text-light" style={{backgroundColor: "purple", fontFamily: "Rubik Mono One"}}>E-Coaching</h2>
-                <h3 className="card-title">Coaching à distance</h3>
+                <h3 className="card-title border text-light bg-dark py-1">Coaching à distance</h3>
                 <h4 className="card-text display-5 fw-bold" style={{color: "purple"}}><i class="bi bi-patch-check"></i> 120 <i className="bi bi-currency-euro"></i> / mois</h4>
                 <ul className="list-unstyled list-group list-group-flush  list-group list-group-flush ">
                 <li className="list-group-item">Un bilan de forme gratuit</li>
@@ -85,13 +85,15 @@ export default function Tarifs() {
 
         {/* Contrôles du Carousel */}
         <button className="carousel-control-prev" type="button" data-bs-target="#tarifsCarousel" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <i className="bi bi-arrow-left-circle" style={{ fontSize: "2rem", color: "#000" }}></i>
+
           <span className="visually-hidden">Précédent</span>
         </button>
         <button className="carousel-control-next" type="button" data-bs-target="#tarifsCarousel" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <i class="bi bi-arrow-right-circle" style={{fontSize: "2rem", color: "#000"}}></i>
           <span className="visually-hidden">Suivant</span>
         </button>
+
       </div>
     </div>
   );
