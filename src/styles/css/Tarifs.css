@@ -1,45 +1,27 @@
-.custom-table {
-  width: 100%;
-  font-size: 1.2rem;
-  border-collapse: collapse;
+.tarifs-container li {
+  line-height: 40px;
+  font-size: large;
+  background-color: rgb(236, 236, 236);
 }
 
-.custom-table th, .custom-table td {
-  padding: 15px 20px;
-  text-align: center;
+.btn-purple{
+  background-color: purple;
+}
+.btn-purple:hover{
+  background-color: rgb(172, 85, 172);
 }
 
-.custom-table th {
-  background-color: #80fbff; /* Bleu pastel */
-  color: #333333;
+.btn-or{
+  background-color: #dec950;
+}
+.btn-or:hover{
+  background-color: #9e903f;
 }
 
-.custom-table td {
-  background-color: #ffffff; /* Bleu pastel clair pour les cellules */
+.card-body{
+  background-color: rgb(236, 236, 236);
 }
 
-.custom-table .fa {
-  margin-left: 5px; /* Pour espacer les icônes des textes */
-}
-
-/* .custom-table tbody th:nth-child(2){
-  background-color: #9d4686; 
-  color: #fff
-} */
-.custom-table thead th:first-child {
-  background-color: #56ccd2; /* Couleur de fond */
-  color: #fff; /* Couleur du texte */
-}
-/* Ajout d'espace entre les éléments <li> */
-.custom-table ul {
-  padding-left: 20px;  /* Décalage à gauche pour les puces */
-}
-
-.custom-table li {
-  margin-bottom: 10px;  /* Espace entre les éléments <li> */
-}
-
-/* Si vous voulez que l'espace entre les <li> soit plus ajusté pour certaines listes spécifiques */
-.custom-table li:last-child {
-  margin-bottom: 0;  /* Pas d'espace après le dernier élément <li> */
+.btn{
+  margin-bottom: 50px;
 }

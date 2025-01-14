@@ -96,6 +96,11 @@ export default function Header() {
               Contact
             </Link>
           </li>
+          <li className="nav-item ">
+            <Link to="/panier" className="nav-link text-white border p-2">
+              Panier <i className="bi bi-cart"></i>
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

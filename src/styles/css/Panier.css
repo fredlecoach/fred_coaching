@@ -1,0 +1,7 @@
+.bg-panier{
+  background-image: url("../images/battlleRope.jpg");
+  background-size: 100%;
+  background-position: center;
+  object-fit: cover;
+  height: 300px;
+}
