@@ -11,7 +11,7 @@ import { programmes, debutantProgram, intermediaireProgram, avanceProgram, exper
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PersonalTraining from './PersonaTraining';
 import Tarifs from './Tarifs';
-import Panier from './Panier';
+// import Panier from './Panier';
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
           <Route path='/e-coaching' element={ <ECoaching />} />
           <Route path='/personal_training' element={ <PersonalTraining />} />
           <Route path="/tarifs" element={ <Tarifs />} />
-          <Route path="/panier" element={ <Panier />} />
+          {/* <Route path="/panier" element={ <Panier />} /> */}
         </Routes>
       <Footer />
     </Router>
