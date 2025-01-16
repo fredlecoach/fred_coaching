@@ -1,7 +1,34 @@
+/* si le panier est vide */
 .bg-panier{
   background-image: url("../images/battlleRope.jpg");
   background-size: 100%;
   background-position: center;
   object-fit: cover;
-  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.btn-ajoute{
+  background-color: rgb(29, 158, 158);
+}
+.btn-ajoute:hover{
+  background-color: aqua;
+}
+
+.btn-diminue{
+  background-color: rgb(204, 211, 19);
+}
+.btn-diminue:hover{
+  background-color: rgb(247, 255, 2);
+}
+
+.btn-annule{
+  background-color: rgb(215, 49, 49);
+  color: #fff;
+}
+.btn-annule:hover{
+  background-color: rgb(254, 3, 3);
+  color: #fff;
 }

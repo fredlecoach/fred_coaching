@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../styles/images/logo_orange.png";
 
-export default function Header() {
+export default function Header( { nbreArticlePanier, prixTotalPanier } ) {
   return (
     <header className="navbar navbar-expand-lg bg-dark" style={{ marginBottom: "100px" }}>
       <nav className="container-fluid">
@@ -99,6 +99,14 @@ export default function Header() {
           <li className="nav-item ">
             <Link to="/panier" className="nav-link text-white border p-2">
               Panier <i className="bi bi-cart"></i>
+              {nbreArticlePanier() > 0 && (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {nbreArticlePanier()}
+                </span>
+              )}
+              <span className="text-warning ms-2">
+                {prixTotalPanier()} €
+              </span>
             </Link>
           </li>
         </ul>

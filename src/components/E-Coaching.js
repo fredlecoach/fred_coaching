@@ -4,7 +4,7 @@ import telephoner from "../styles/images/telephoner.jpg";
 import workout from "../styles/images/workout plan.jpg";
 import evolution from "../styles/images/evolution.jpg";
 
-export default function ECoaching() {
+export default function ECoaching( {addCart, prestation} ) {
   return (
     <div className="container" style={{marginBottom: "100px"}}>
       {/* Titre principal */}
@@ -104,6 +104,10 @@ export default function ECoaching() {
           </div>
         </div>
       </div>
+      <div className="d-flex justify-content-center my-5">
+        <button className="btn btn-dark py-3 px-4" onClick={ ()=> { addCart(prestation); alert(' "E-coaching" a été ajouté au panier')  }   }>ajouter au panier <i className="bi bi-caret-right"></i></button>
+      </div>
+      <hr/>
       <div className="d-flex d-inline-block mt-5">
         <h4>Découvrir l'autre formule</h4>
         <Link to="/personal_training" className="mx-2"><button className="btn btn-warning fw-bold shadow">Le coaching à domicile </button></Link>
