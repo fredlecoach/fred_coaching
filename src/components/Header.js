@@ -2,12 +2,25 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../styles/images/logo_orange.png";
 
 export default function Header({ nbreArticlePanier, prixTotalPanier }) {
-  const location = useLocation(); // Récupère l'URL actuelle
+  const location = useLocation();
+
+  // Styles dynamiques
+  const activeStyle = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    textDecorationThickness: "2px",
+    textUnderlineOffset: "5px",
+  };
+
+  const hoverStyle = {
+    textDecoration: "underline",
+    textDecorationThickness: "2px",
+    textUnderlineOffset: "5px",
+  };
 
   return (
     <header className="navbar navbar-expand-lg bg-dark" style={{ marginBottom: "100px" }}>
       <nav className="container-fluid">
-        {/* Logo */}
         <Link className="navbar-brand" to="/">
           <img
             src={logo}
@@ -17,24 +30,28 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
           />
         </Link>
 
-        {/* Navigation Links */}
         <ul className="navbar-nav ms-auto d-flex">
           <li className="nav-item">
             <Link
               to="/"
-              className={`nav-link text-white ${location.pathname === '/' ? 'active' : ''}`} // Classe active
+              className="nav-link text-white"
+              style={location.pathname === '/' ? activeStyle : {}}
             >
               Home
             </Link>
           </li>
 
-          {/* Coachings */}
           <li className="nav-item dropdown">
             <button
-              className={`nav-link dropdown-toggle text-white btn btn-link ${location.pathname.includes('/e-coaching') || location.pathname.includes('/personal_training') ? 'active' : ''}`}
+              className="nav-link dropdown-toggle text-white btn btn-link"
               id="coachingsDropdown"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              style={
+                location.pathname.includes('/e-coaching') || location.pathname.includes('/personal_training')
+                  ? activeStyle
+                  : {}
+              }
             >
               Coachings <i className="fa-solid fa-dumbbell"></i>
             </button>
@@ -42,7 +59,8 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
               <li>
                 <Link
                   to="/e-coaching"
-                  className={`dropdown-item ${location.pathname === '/e-coaching' ? 'active' : ''}`}
+                  className="dropdown-item"
+                  style={location.pathname === '/e-coaching' ? activeStyle : {}}
                 >
                   E-Coaching <i className="fa-solid fa-computer"></i>
                 </Link>
@@ -50,7 +68,8 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
               <li>
                 <Link
                   to="/personal_training"
-                  className={`dropdown-item ${location.pathname === '/personal_training' ? 'active' : ''}`}
+                  className="dropdown-item"
+                  style={location.pathname === '/personal_training' ? activeStyle : {}}
                 >
                   Personal Training <i className="fa-solid fa-person-running"></i>
                 </Link>
@@ -58,56 +77,42 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
             </ul>
           </li>
 
-          {/* Programmes */}
           <li className="nav-item dropdown">
             <button
-              className={`nav-link dropdown-toggle text-white btn btn-link ${location.pathname.includes('/debutant') || location.pathname.includes('/intermediaire') || location.pathname.includes('/avance') || location.pathname.includes('/expert') ? 'active' : ''}`}
+              className="nav-link dropdown-toggle text-white btn btn-link"
               id="programmesDropdown"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              style={
+                ['/debutant', '/intermediaire', '/avance', '/expert'].some(path =>
+                  location.pathname.includes(path)
+                )
+                  ? activeStyle
+                  : {}
+              }
             >
               Programmes
             </button>
             <ul className="dropdown-menu" aria-labelledby="programmesDropdown">
-              <li>
-                <Link
-                  to="/debutant"
-                  className={`dropdown-item ${location.pathname === '/debutant' ? 'active' : ''}`}
-                >
-                  Débutants
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/intermediaire"
-                  className={`dropdown-item ${location.pathname === '/intermediaire' ? 'active' : ''}`}
-                >
-                  Intermédiaires
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/avance"
-                  className={`dropdown-item ${location.pathname === '/avance' ? 'active' : ''}`}
-                >
-                  Avancés
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/expert"
-                  className={`dropdown-item ${location.pathname === '/expert' ? 'active' : ''}`}
-                >
-                  Expert
-                </Link>
-              </li>
+              {['/debutant', '/intermediaire', '/avance', '/expert'].map((path, index) => (
+                <li key={index}>
+                  <Link
+                    to={path}
+                    className="dropdown-item"
+                    style={location.pathname === path ? activeStyle : {}}
+                  >
+                    {path.slice(1).charAt(0).toUpperCase() + path.slice(2)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </li>
 
           <li className="nav-item">
             <Link
               to="/dietetique"
-              className={`nav-link text-white ${location.pathname === '/dietetique' ? 'active' : ''}`}
+              className="nav-link text-white"
+              style={location.pathname === '/dietetique' ? activeStyle : {}}
             >
               Planning repas
             </Link>
@@ -115,7 +120,8 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
           <li className="nav-item">
             <Link
               to="/tarifs"
-              className={`nav-link text-white ${location.pathname === '/tarifs' ? 'active' : ''}`}
+              className="nav-link text-white"
+              style={location.pathname === '/tarifs' ? activeStyle : {}}
             >
               Tarifs
             </Link>
@@ -123,7 +129,8 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
           <li className="nav-item">
             <Link
               to="/contact"
-              className={`nav-link text-white ${location.pathname === '/contact' ? 'active' : ''}`}
+              className="nav-link text-white"
+              style={location.pathname === '/contact' ? activeStyle : {}}
             >
               Contact
             </Link>
@@ -131,7 +138,8 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
           <li className="nav-item">
             <Link
               to="/panier"
-              className={`nav-link text-white border p-2 position-relative ${location.pathname === '/panier' ? 'active' : ''}`}
+              className="nav-link text-white border p-2 position-relative"
+              style={location.pathname === '/panier' ? activeStyle : {}}
             >
               Panier <i className="bi bi-cart"></i>
               {nbreArticlePanier() > 0 && (
@@ -139,9 +147,7 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
                   {nbreArticlePanier()}
                 </span>
               )}
-              <span className="text-warning ms-2">
-                {prixTotalPanier()} €
-              </span>
+              <span className="text-warning ms-2">{prixTotalPanier()} €</span>
             </Link>
           </li>
         </ul>

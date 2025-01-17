@@ -13,15 +13,3 @@
   transform: scale(1.1);
 }
 
-.active{
-  font-weight: bold;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 5px;
-}
-
-.nav-link:hover{
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 5px;
-}
