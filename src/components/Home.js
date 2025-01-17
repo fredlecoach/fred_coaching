@@ -5,6 +5,10 @@ import personal_training from '../styles/images/personal_training.jpg';
 import coaching_ligne from '../styles/images/coaching_ligne.jpg';
 import repas from '../styles/images/repas.jpg'
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import 'animate.css';
+import ScrollMagic from 'scrollmagic';
+import { gsap } from 'gsap';
 
 export default function Home({ programmes }) {
   // Définir les couleurs par niveau
@@ -15,9 +19,27 @@ export default function Home({ programmes }) {
     Expert: '#C9A735',         // Or
   };
 
+  // effet de d'apparition en scrollant
+  useEffect(() => {
+    const controller = new ScrollMagic.Controller();
+  
+    document.querySelectorAll('.home').forEach((card) => {
+      new ScrollMagic.Scene({
+        triggerElement: card,
+        triggerHook: 0.7,
+        reverse: true,
+      })
+      .on('enter', () => {
+        gsap.fromTo(card, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8 });
+      })
+      .addTo(controller);
+    });
+  }, []);
+  
+
   return (
     <>
-      <div className="container">
+      <div className="container home">
         <div className="row row-cols-1 row-cols-md-4 g-4 text-center"> {/* Ajout du gap */}
           {programmes.map((p) => {
             const titleColor = levelColors[p.niveau] || '#000'; // Noir par défaut

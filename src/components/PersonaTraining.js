@@ -2,9 +2,35 @@ import { Link } from "react-router-dom";
 import evaluation from "../styles/images/bilan.jpg";
 import telephoner from "../styles/images/telephoner.jpg";
 import domicile from "../styles/images/abs.jpg";
-import progres from "../styles/images/progres.jpg"
+import progres from "../styles/images/progres.jpg";
+import ScrollMagic from "scrollmagic";
+import { gsap } from "gsap"
+import { useEffect } from "react";
 
 export default function PersonalTraining(  { addCart, prestation} ) {
+
+
+  useEffect( 
+    ()=>{
+      const apparaitre = new ScrollMagic.Controller();
+
+      document.querySelectorAll('.card').forEach(
+        (card) => {
+          new ScrollMagic.Scene(
+            {triggerElement: card,
+              triggerHook: .8,
+              reverse: true
+            }
+          ).on('enter', () => {
+            gsap.fromTo(card, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8 });
+          })
+          .addTo(apparaitre)
+        }
+      )
+    }, []
+  )
+
+
   return (
     <div className="container" style={{ marginBottom: "100px" }}>
       {/* Titre principal */}

@@ -97,10 +97,10 @@ export default function Header( { nbreArticlePanier, prixTotalPanier } ) {
             </Link>
           </li>
           <li className="nav-item ">
-            <Link to="/panier" className="nav-link text-white border p-2">
+            <Link to="/panier" className="nav-link text-white border p-2 position-relative">
               Panier <i className="bi bi-cart"></i>
               {nbreArticlePanier() > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                   {nbreArticlePanier()}
                 </span>
               )}

@@ -29,7 +29,7 @@ export default function Expert({expertProgram, addCart, prestation}) {
           ))}
           </div>
             <div className="d-flex justify-content-center my-5">
-              <button className="btn btn-dark py-3 px-4" onClick={ ()=>{ addCart(prestation); alert('Programmes "Experts" ajouté au panier')} }>Ajouter au panier <i className="bi bi-caret-right"></i></button>
+              <button className="btn btn-dark py-3 px-4" onClick={ ()=>{ addCart(prestation); alert('Programmes "Experts" ajouté au panier')} }>Ajouter le pack au panier <i className="bi bi-caret-right"></i></button>
             </div>
         </div>
       </div>

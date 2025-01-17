@@ -3,8 +3,30 @@ import evaluation from "../styles/images/bilan.jpg";
 import telephoner from "../styles/images/telephoner.jpg";
 import workout from "../styles/images/workout plan.jpg";
 import evolution from "../styles/images/evolution.jpg";
+import ScrollMagic from "scrollmagic";
+import {gsap} from "gsap"
+import { useEffect } from "react";
 
 export default function ECoaching( {addCart, prestation} ) {
+
+  useEffect(() => {
+    const defiler = new ScrollMagic.Controller();
+  
+    document.querySelectorAll(".card").forEach((card) => {
+      new ScrollMagic.Scene({
+        triggerElement: card,
+        triggerHook: .8,
+        reverse: false
+      })
+        .on('enter', () => {
+          gsap.fromTo(card, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8 });
+        })
+        .addTo(defiler);
+    });
+  }, []);
+  
+
+
   return (
     <div className="container" style={{marginBottom: "100px"}}>
       {/* Titre principal */}

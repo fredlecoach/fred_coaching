@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import "../styles/css/Panier.css";
+import 'animate.css'
 
 export default function Panier({ panier, total, ajouter, supprimerPrestation, diminuer, deletePanier }) {
+
+  useEffect(
+    ()=>{
+      const shakePanierVide = document.querySelector(".bg-panier");
+      if(shakePanierVide){
+        shakePanierVide.classList.add("animate__animated", "animate__shakeX")
+      }
+    }, [panier]
+  )
+
   if (panier.length === 0) {
     return (
       <div className="bg-panier">

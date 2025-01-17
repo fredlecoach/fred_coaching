@@ -8,23 +8,38 @@ export default function Contact() {
   });
 
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
-  // Gérer les changements dans le formulaire
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Gérer la soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Envoyer les données (à un backend ou service d'email)
-    console.log("Données envoyées :", formData);
-
-    // Réinitialiser le formulaire après soumission
-    setFormData({ nom: "", email: "", message: "" });
-    setSuccess(true);
+    
+    fetch("http://localhost:5000/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setSuccess(true);
+          setError(false);
+          setFormData({ nom: "", email: "", message: "" });
+          setTimeout(() => setSuccess(false), 5000);
+        } else {
+          setError(true);
+          setSuccess(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur :", error);
+        setError(true);
+        setSuccess(false);
+      });
   };
 
   return (
@@ -32,6 +47,7 @@ export default function Contact() {
       <h2 className="text-center mb-4">📩 Contacte-moi</h2>
 
       {success && <div className="alert alert-success">Message envoyé avec succès !</div>}
+      {error && <div className="alert alert-danger">Une erreur s'est produite. Veuillez réessayer plus tard.</div>}
 
       <form onSubmit={handleSubmit} className="shadow p-4 rounded">
         <div className="mb-3">
