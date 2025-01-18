@@ -9,7 +9,7 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
     fontWeight: "bold",
     textDecoration: "underline",
     textDecorationThickness: "2px",
-    textUnderlineOffset: "5px",
+    textUnderlineOffset: "5px"
   };
 
   const hoverStyle = {
