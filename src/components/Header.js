@@ -1,5 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import logo from "../styles/images/logo_orange.png";
+import { useEffect } from "react";
+import "animate.css"
 
 export default function Header({ nbreArticlePanier, prixTotalPanier }) {
   const location = useLocation();
@@ -12,11 +14,13 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
     textUnderlineOffset: "5px"
   };
 
-  // const hoverStyle = {
-  //   textDecoration: "underline",
-  //   textDecorationThickness: "2px",
-  //   textUnderlineOffset: "5px",
-  // };
+
+  useEffect(
+    () => {
+      const shakeLogo = document.querySelector(".navbar-brand");
+      shakeLogo.classList.add("animate__animated", "animate__bounce")
+    }, []
+  )
 
   return (
     <header className="navbar navbar-expand-lg bg-dark" style={{ marginBottom: "100px" }}>

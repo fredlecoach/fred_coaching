@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "../styles/css/Panier.css";
-import 'animate.css'
+import 'animate.css';
 
 export default function Panier({ panier, total, ajouter, supprimerPrestation, diminuer, deletePanier }) {
 
@@ -10,6 +10,13 @@ export default function Panier({ panier, total, ajouter, supprimerPrestation, di
       if(shakePanierVide){
         shakePanierVide.classList.add("animate__animated", "animate__shakeX")
       }
+
+      setTimeout(() => {
+        if(shakePanierVide){
+          shakePanierVide.classList.remove("animate__animated", "animate__shakeX")
+        }        
+      }, 1000);
+      
     }, [panier]
   )
 
