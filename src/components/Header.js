@@ -12,11 +12,11 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
     textUnderlineOffset: "5px"
   };
 
-  const hoverStyle = {
-    textDecoration: "underline",
-    textDecorationThickness: "2px",
-    textUnderlineOffset: "5px",
-  };
+  // const hoverStyle = {
+  //   textDecoration: "underline",
+  //   textDecorationThickness: "2px",
+  //   textUnderlineOffset: "5px",
+  // };
 
   return (
     <header className="navbar navbar-expand-lg bg-dark" style={{ marginBottom: "100px" }}>
