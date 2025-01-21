@@ -1,6 +1,7 @@
 import { useState } from 'react'; // Importer useState pour gérer les états
 import planning from '../styles/images/planning.jpg';
-import "../styles/css/Home.css"
+import "../styles/css/Home.css";
+import { Link } from 'react-router-dom';
 
 export default function Dietetique() {
   // Déclarer les états pour le poids, la taille et l'IMC
@@ -184,7 +185,9 @@ export default function Dietetique() {
               <p style={{textAlign: "justify", marginBottom: "100px"}}>L'IMC doit être interprété avec prudence, car il ne prend pas en compte la morphologie, la répartition de la masse musculaire ou la composition corporelle. Ainsi, il peut ne pas refléter fidèlement l'état de santé global d'une personne. Donc il est à prendre au sérieux ou pas au cas par cas. Malgré tout il peut donner des indices précieux dans certains cas.</p>
             </aside>
             <div className='d-flex justify-content-center'>
-              <button className='btn btn-dark py-3 px-4 bouton-perso'>Contacter <i className='bi bi-caret-right'></i></button>
+              <Link to="/contact">
+                <button className='btn btn-dark py-3 px-4 bouton-perso'>Contacter <i className='bi bi-caret-right'></i></button>
+              </Link>
             </div>
             
           </div>

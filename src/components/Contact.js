@@ -88,7 +88,7 @@ export default function Contact() {
             value={formData.message}
             onChange={handleChange}
             required
-            placeholder="Votre message"
+            placeholder="Posez vos questions"
           ></textarea>
         </div>
 
