@@ -132,6 +132,15 @@ export default function Header({ nbreArticlePanier, prixTotalPanier }) {
           </li>
           <li className="nav-item">
             <Link
+              to="/mesProgrammes" 
+              className="nav-link text-white"
+              style={location.pathname === 'mesProgrammes' ? activeStyle : {}}
+            >
+              Mes programmes
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
               to="/contact"
               className="nav-link text-white"
               style={location.pathname === '/contact' ? activeStyle : {}}

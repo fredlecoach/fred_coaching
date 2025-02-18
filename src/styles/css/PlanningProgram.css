@@ -1,0 +1,17 @@
+.card{
+  transition: transform 0.5s ease-in-out;
+}
+
+.card:hover{
+  /* box-shadow: 10px gray; */
+  transform: scale(1.05)
+}
+
+fieldset .btn:hover{
+  background-color: #42f4f7 !important;
+  color: #000
+}
+
+.bouton-program .btn{
+  box-shadow: 5px 5px 5px gray;
+}
