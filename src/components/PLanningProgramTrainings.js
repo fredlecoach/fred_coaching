@@ -104,7 +104,8 @@ export default function PlanningProgram({
 
   return (
     <div className="container mt-4">
-      <h2>Planning d'entraînement</h2>
+      <h4 className="text-center mb-5 px-3 py-2 border" style={{color:"goldenrod"}}><i class="fa-solid fa-dumbbell"></i> Crée et enregistre tes entraînements directement sur l'application <i class="fa-solid fa-dumbbell"></i> </h4>
+      <h3>Planning d'entraînement</h3>
 
       {/* Formulaire pour créer un nouveau programme */}
       <form onSubmit={handleProgrammeSubmit} >
