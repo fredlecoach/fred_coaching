@@ -272,6 +272,7 @@ export default function PlanningProgram({
           onChange={handleChangeProgramme}
           value={trainingForm.programme}
           placeholder="Pecs, jambes , haut du corps"
+          required
         />
         <label for="illustration" style={{color:" goldenrod"}}><i className="bi bi-image fs-5"></i> Choisir une image pour illustrer votre programme</label>
         <input
@@ -280,6 +281,7 @@ export default function PlanningProgram({
           className="form-control mb-2"
           onChange={handleImageChange}
           accept="image/*"
+          required
         />
         
         <button type="submit" className="btn btn-primary">
