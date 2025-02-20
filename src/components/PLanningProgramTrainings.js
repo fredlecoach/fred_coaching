@@ -21,31 +21,76 @@ export default function PlanningProgram({
   });
   const [editingExercice, setEditingExercice] = useState(null);
   const [editingTraining, setEditingTraining] = useState(null);
+  const [editingProgramName, setEditingProgramName] = useState(null);
+  const [newProgramName, setNewProgramName] = useState("");
   const imageInputRefs = useRef({});
   const objectUrls = useRef(new Set());
 
-  // Charger les images sauvegardées au démarrage
-  useEffect(() => {
-    const savedImages = JSON.parse(localStorage.getItem('trainingImages') || '{}');
-    Object.entries(savedImages).forEach(([trainingName, imageUrl]) => {
-      if (persoTrainings[trainingName]) {
-        updateTrainingImage(trainingName, imageUrl);
-      }
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
     });
+  };
 
-    // Nettoyage des URLs d'objets lors du démontage du composant
-    return () => {
-      objectUrls.current.forEach(url => {
-        URL.revokeObjectURL(url);
-      });
-      objectUrls.current.clear();
+  const saveImageToIndexedDB = (trainingName, base64Image) => {
+    const request = indexedDB.open("TrainingImagesDB", 1);
+  
+    request.onupgradeneeded = function (event) {
+      const db = event.target.result;
+      if (!db.objectStoreNames.contains("images")) {
+        db.createObjectStore("images", { keyPath: "trainingName" });
+      }
     };
+  
+    request.onsuccess = function (event) {
+      const db = event.target.result;
+      const transaction = db.transaction(["images"], "readwrite");
+      const store = transaction.objectStore("images");
+      store.put({ trainingName, base64Image });
+    };
+  
+    request.onerror = function (event) {
+      console.error("Erreur lors de l'accès à IndexedDB", event.target.error);
+    };
+  };
+
+  const loadImagesFromIndexedDB = () => {
+    const request = indexedDB.open("TrainingImagesDB", 1);
+
+    request.onsuccess = function (event) {
+      const db = event.target.result;
+      const transaction = db.transaction(["images"], "readonly");
+      const store = transaction.objectStore("images");
+      const getAllRequest = store.getAll();
+
+      getAllRequest.onsuccess = function () {
+        getAllRequest.result.forEach(({ trainingName, base64Image }) => {
+          updateTrainingImage(trainingName, base64Image);
+        });
+      };
+
+      getAllRequest.onerror = function () {
+        console.error("Erreur lors de la récupération des images depuis IndexedDB.");
+      };
+    };
+
+    request.onerror = function () {
+      console.error("Erreur lors de l'accès à IndexedDB");
+    };
+  };
+
+  useEffect(() => {
+    loadImagesFromIndexedDB();
   }, []);
 
-  const createAndTrackObjectURL = (file) => {
-    const url = URL.createObjectURL(file);
-    objectUrls.current.add(url);
-    return url;
+  const handleImageChange = async (e) => {
+    if (e.target.files?.[0]) {
+      const base64Image = await convertFileToBase64(e.target.files[0]);
+      setTrainingForm({ ...trainingForm, image: base64Image });
+    }
   };
 
   const handleChangeProgramme = (e) => {
@@ -53,36 +98,11 @@ export default function PlanningProgram({
     setTrainingForm({ ...trainingForm, [name]: value });
   };
 
-  const handleImageChange = (e) => {
+  const handleUpdateProgramImage = async (e, trainingName) => {
     if (e.target.files?.[0]) {
-      // Révoquer l'ancienne URL si elle existe
-      if (trainingForm.image) {
-        URL.revokeObjectURL(trainingForm.image);
-        objectUrls.current.delete(trainingForm.image);
-      }
-      const imageUrl = createAndTrackObjectURL(e.target.files[0]);
-      setTrainingForm({
-        ...trainingForm,
-        image: imageUrl
-      });
-    }
-  };
-
-  const handleUpdateProgramImage = (e, trainingName) => {
-    if (e.target.files?.[0]) {
-      // Révoquer l'ancienne URL si elle existe
-      const savedImages = JSON.parse(localStorage.getItem('trainingImages') || '{}');
-      if (savedImages[trainingName]) {
-        URL.revokeObjectURL(savedImages[trainingName]);
-        objectUrls.current.delete(savedImages[trainingName]);
-      }
-
-      const imageUrl = createAndTrackObjectURL(e.target.files[0]);
-      updateTrainingImage(trainingName, imageUrl);
-      
-      // Sauvegarder l'URL de l'image dans le localStorage
-      savedImages[trainingName] = imageUrl;
-      localStorage.setItem('trainingImages', JSON.stringify(savedImages));
+      const base64Image = await convertFileToBase64(e.target.files[0]);
+      updateTrainingImage(trainingName, base64Image);
+      saveImageToIndexedDB(trainingName, base64Image);
     }
   };
 
@@ -98,14 +118,6 @@ export default function PlanningProgram({
     e.preventDefault();
     if (!trainingForm.programme.trim()) return;
     addProgramme(trainingForm);
-    
-    // Sauvegarder l'image du nouveau programme si elle existe
-    if (trainingForm.image) {
-      const savedImages = JSON.parse(localStorage.getItem('trainingImages') || '{}');
-      savedImages[trainingForm.programme] = trainingForm.image;
-      localStorage.setItem('trainingImages', JSON.stringify(savedImages));
-    }
-    
     setTrainingForm({ programme: "", image: "" });
   };
 
@@ -139,8 +151,22 @@ export default function PlanningProgram({
     setEditingTraining(trainingName);
   };
 
+  const startEditingProgramName = (trainingName) => {
+    setEditingProgramName(trainingName);
+    setNewProgramName(trainingName);
+  };
+
+  const handleProgramNameUpdate = (oldName) => {
+    if (newProgramName.trim() && newProgramName !== oldName) {
+      const training = persoTrainings[oldName];
+      deleteTraining(oldName);
+      addProgramme({ programme: newProgramName, image: training.image || '' });
+      training.exercices.forEach(exercice => addExercice(newProgramName, exercice));
+    }
+    setEditingProgramName(null);
+  };
+
   const handleDeleteTraining = (trainingName) => {
-    // Révoquer l'URL de l'image et la supprimer du localStorage
     const savedImages = JSON.parse(localStorage.getItem('trainingImages') || '{}');
     if (savedImages[trainingName]) {
       URL.revokeObjectURL(savedImages[trainingName]);
@@ -148,7 +174,6 @@ export default function PlanningProgram({
       delete savedImages[trainingName];
       localStorage.setItem('trainingImages', JSON.stringify(savedImages));
     }
-    
     deleteTraining(trainingName);
   };
 
@@ -237,7 +262,6 @@ export default function PlanningProgram({
       </h4>
       <h3>Planning d'entraînement</h3>
 
-      {/* Formulaire pour créer un nouveau programme */}
       <form onSubmit={handleProgrammeSubmit}>
         <input
           type="text"
@@ -260,38 +284,85 @@ export default function PlanningProgram({
 
       <hr className="my-5"/>
 
-      {/* Affichage des programmes */}
       <div className="row row-cols-1 bouton-program">
         {Object.entries(persoTrainings).map(([trainingName, training]) => (
           <div className="col" key={trainingName}>
             <div className="mb-5">
               <div className="position-relative">
-                <img
-                  src={training.image || trainingsImage}
-                  className="card-img-top w-100 object-fit-cover"
-                  style={{ height: "400px", cursor: "pointer", borderRadius: "10px 10px 0 0" }}
-                  alt={trainingName}
-                  onClick={() => triggerImageInput(trainingName)}
-                  title="Cliquez pour modifier l'image"
-                />
-                <input
-                  type="file"
-                  ref={el => imageInputRefs.current[trainingName] = el}
-                  className="d-none"
-                  accept="image/*"
-                  onChange={(e) => handleUpdateProgramImage(e, trainingName)}
-                />
                 <div 
-                  className="position-absolute top-0 end-0 m-2 p-2 bg-dark bg-opacity-75 text-white rounded"
-                  style={{ cursor: "pointer" }}
+                  className="image-container"
+                  style={{ 
+                    height: "300px",
+                    cursor: "pointer",
+                    borderRadius: "10px 10px 0 0",
+                    backgroundColor: "#f8f9fa",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "relative"
+                  }}
                   onClick={() => triggerImageInput(trainingName)}
                 >
-                  <i className="bi bi-camera-fill"></i> 
+                  {training.image ? (
+                    <img
+                      src={training.image}
+                      className="w-100 h-100"
+                      style={{ 
+                        objectFit: "cover",
+                        borderRadius: "10px 10px 0 0"
+                      }}
+                      alt={trainingName}
+                    />
+                  ) : (
+                    <div className="text-center">
+                      <i className="bi bi-image" style={{ fontSize: "3rem", color: "#adb5bd" }}></i>
+                      <p className="mt-2 text-muted">Cliquez pour ajouter une image</p>
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    ref={el => imageInputRefs.current[trainingName] = el}
+                    className="d-none"
+                    accept="image/*"
+                    onChange={(e) => handleUpdateProgramImage(e, trainingName)}
+                  />
+                  <div 
+                    className="position-absolute top-0 end-0 m-2 p-2 bg-dark bg-opacity-75 text-white rounded"
+                    style={{ cursor: "pointer" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      triggerImageInput(trainingName);
+                    }}
+                  >
+                    <i className="bi bi-camera-fill"></i>
+                  </div>
                 </div>
               </div>
               <div className="p-3" style={{boxShadow: "5px 10px 30px gray", borderRadius:"0 0 10px 10px"}}>
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h5 className="card-title text-uppercase text-primary mb-0">{trainingName}</h5>
+                  {editingProgramName === trainingName ? (
+                    <div className="d-flex gap-2 align-items-center">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={newProgramName}
+                        onChange={(e) => setNewProgramName(e.target.value)}
+                        onBlur={() => handleProgramNameUpdate(trainingName)}
+                        onKeyPress={(e) => e.key === 'Enter' && handleProgramNameUpdate(trainingName)}
+                        autoFocus
+                      />
+                    </div>
+                  ) : (
+                    <div className="d-flex align-items-center gap-2">
+                      <h5 className="card-title text-uppercase text-primary mb-0">{trainingName}</h5>
+                      <button 
+                        className="btn btn-link p-0 text-primary"
+                        onClick={() => startEditingProgramName(trainingName)}
+                      >
+                        <i className="bi bi-pencil"></i>
+                      </button>
+                    </div>
+                  )}
                   <button 
                     onClick={() => handleDeleteTraining(trainingName)} 
                     className="btn btn-danger"
@@ -300,7 +371,6 @@ export default function PlanningProgram({
                   </button>
                 </div>
 
-                {/* Liste des exercices */}
                 <ul className="list-unstyled">
                   {training.exercices?.map((exercice, index) => (
                     <React.Fragment key={index}>
@@ -334,7 +404,6 @@ export default function PlanningProgram({
                   ))}
                 </ul>
 
-                {/* Bouton pour ajouter un nouvel exercice */}
                 {!editingTraining && (
                   <button 
                     className="btn btn-success mt-3"
@@ -344,7 +413,6 @@ export default function PlanningProgram({
                   </button>
                 )}
 
-                {/* Formulaire pour un nouvel exercice */}
                 {editingTraining === trainingName && editingExercice === null && renderExerciceForm(trainingName)}
               </div>
             </div>
