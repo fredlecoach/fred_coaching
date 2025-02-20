@@ -257,26 +257,31 @@ export default function PlanningProgram({
 
   return (
     <div className="container mt-4">
-      <h4 className="text-center mb-5 px-3 py-2 border" style={{color:"goldenrod"}}>
-        <i className="fa-solid fa-dumbbell"></i> Crée et enregistre tes entraînements directement sur l'application <i className="fa-solid fa-dumbbell"></i>
-      </h4>
-      <h3>Planning d'entraînement</h3>
+      <div className="text-center mb-5">
+        <h2><i className="fa-solid fa-dumbbell" style={{color:"goldenrod"}}></i> Plannification d'entraînements <i className="fa-solid fa-dumbbell" style={{color:"goldenrod"}}></i></h2>
+      <p className="text-muted">Créez et enregistrez vos programmes d'entraînements personnalisés </p>
+      </div>
+      
 
       <form onSubmit={handleProgrammeSubmit}>
+        <label style={{color:" goldenrod"}}>Nom du programme</label>
         <input
           type="text"
           name="programme"
-          className="form-control mb-2"
+          className="form-control mb-3"
           onChange={handleChangeProgramme}
           value={trainingForm.programme}
-          placeholder="Nom du programme"
+          placeholder="Pecs, jambes , haut du corps"
         />
+        <label for="illustration" style={{color:" goldenrod"}}><i className="bi bi-image fs-5"></i> Choisir une image pour illustrer votre programme</label>
         <input
           type="file"
+          id="illustration"
           className="form-control mb-2"
           onChange={handleImageChange}
           accept="image/*"
         />
+        
         <button type="submit" className="btn btn-primary">
           Créer Programme
         </button>
