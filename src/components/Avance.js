@@ -28,7 +28,7 @@ export default function Avance({avanceProgram, addCart, prestation}) {
             ))}
             </div>
             <div className="d-flex justify-content-center my-5">
-              <button className="btn btn-dark py-3 px-4" onClick={ ()=>{ addCart(prestation); alert('Programmes "Avancés" ajouté au panier')} }>Ajouter le pack au panier <i className="bi bi-caret-right"></i></button>
+              <button className="btn btn-dark py-3 px-4" onClick={ ()=>{ addCart(prestation); alert('Programmes "Avancés" ajouté au panier')} }>Ajouter le pack au panier <i className="bi bi-caret-right"></i> 50 €</button>
             </div>
         </div>
       </div>

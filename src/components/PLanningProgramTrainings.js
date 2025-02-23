@@ -291,6 +291,7 @@ export default function PlanningProgram({
 
       <hr className="my-5"/>
 
+      {/* vue des programmes */}
       <div className="row row-cols-1 bouton-program">
         {Object.entries(persoTrainings).map(([trainingName, training]) => (
           <div className="col" key={trainingName}>
@@ -299,7 +300,7 @@ export default function PlanningProgram({
                 <div 
                   className="image-container"
                   style={{ 
-                    height: "300px",
+                    height: "400px",
                     cursor: "pointer",
                     borderRadius: "10px 10px 0 0",
                     backgroundColor: "#f8f9fa",

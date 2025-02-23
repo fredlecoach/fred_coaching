@@ -138,7 +138,7 @@ export default function PersonalTraining(  { addCart, prestation} ) {
         </div>
       </div>
       <div className="d-flex justify-content-center my-5">
-        <button className="btn btn-dark py-3 px-4" onClick={ ()=> { addCart(prestation); alert(' "Home Coaching" a été ajouté au panier')  }   }>ajouter au panier <i className="bi bi-caret-right"></i></button>
+        <button className="btn btn-dark py-3 px-4" onClick={ ()=> { addCart(prestation); alert(' "Home Coaching" a été ajouté au panier')  }   }>ajouter au panier <i className="bi bi-caret-right"></i> 1300 €</button>
       </div>
       <hr/>
       <div className="d-flex d-inline-block mt-5">

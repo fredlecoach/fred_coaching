@@ -42,7 +42,7 @@ export default function Tarifs({ prestations, addToCart}) {
                   <li className="list-group-item">Des conseils nutritionnels</li>
                 </ul>
                 <div>
-                  <label htmlFor="niveau-select">Niveau :</label>
+                  <label htmlFor="niveau-select">Niveau </label>
                   <select id="niveau-select" value={niveau} onChange={handleChange}>
                     <option value="Débutants">Débutants</option>
                     <option value="Intermédiaires">Intermédiaires</option>
