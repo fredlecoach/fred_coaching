@@ -40,8 +40,7 @@ app.post('/contact', (req, res) => {
   });
 });
 
-// Nouvel endpoint pour les commandes
-app.post('/order', (req, res) => {
+app.post('/order', async (req, res) => {
   const { customer, order } = req.body;
 
   console.log("Nouvelle commande reçue :", { customer, order });
@@ -52,7 +51,8 @@ app.post('/order', (req, res) => {
     ).join('\n');
   };
 
-  const mailOptions = {
+  // Email pour l'administrateur
+  const adminMailOptions = {
     from: process.env.EMAIL_USER,
     to: 'f.roblot.coulanges@gmail.com',
     subject: `Nouvelle commande de ${customer.prenom} ${customer.nom}`,
@@ -72,22 +72,63 @@ ${formatItems(order.items)}
 Total: ${order.total}€
 
 Date de la commande: ${new Date().toLocaleString('fr-FR')}
-    `,
+    `
   };
 
-  transporter.sendMail(mailOptions, (err, info) => {
+  // Envoi de l'email à l'administrateur
+  transporter.sendMail(adminMailOptions, (err, info) => {
     if (err) {
-      console.error('Erreur lors de l\'envoi de la commande:', err);
+      console.error('Erreur lors de l\'envoi de la commande à l\'administrateur:', err);
       return res.status(500).json({ 
         success: false, 
-        message: "Erreur lors de l'envoi de la commande, veuillez réessayer plus tard." 
+        message: "Erreur lors de l'envoi de la commande à l'administrateur." 
       });
     }
 
-    console.log('Commande envoyée:', info.response);
-    res.status(200).json({ 
-      success: true, 
-      message: "Commande enregistrée avec succès!" 
+    console.log('Commande envoyée à l\'administrateur:', info.response);
+
+    // Email pour le client
+    const clientMailOptions = {
+      from: process.env.EMAIL_USER,
+      to: customer.email,
+      subject: 'Confirmation de votre commande',
+      text: `
+Merci pour votre commande !
+
+Votre commande a bien été enregistrée et est en cours de traitement. Voici les détails :
+--------------------------
+Nom : ${customer.prenom} ${customer.nom}
+Email : ${customer.email}
+
+Détails de votre commande :
+${formatItems(order.items)}
+
+Total : ${order.total}€
+
+Date de la commande : ${new Date().toLocaleString('fr-FR')}
+
+Nous vous enverrons votre programme après vérification du paiement.
+
+Cordialement,
+L'équipe
+      `,
+    };
+
+    // Envoi de l'email au client
+    transporter.sendMail(clientMailOptions, (err, info) => {
+      if (err) {
+        console.error('Erreur lors de l\'envoi de l\'email de confirmation au client:', err);
+        return res.status(500).json({ 
+          success: false, 
+          message: "Erreur lors de l'envoi de l'email de confirmation au client." 
+        });
+      }
+
+      console.log('Confirmation envoyée au client:', info.response);
+      res.status(200).json({ 
+        success: true, 
+        message: "Commande enregistrée avec succès et confirmation envoyée au client !" 
+      });
     });
   });
 });

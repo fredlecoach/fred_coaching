@@ -9,7 +9,8 @@ export default function Paiement() {
   const [customerInfo, setCustomerInfo] = useState({
     nom: '',
     prenom: '',
-    email: ''
+    email: '',
+    phone: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -26,7 +27,15 @@ export default function Paiement() {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
-
+  
+    // Vérification du numéro de téléphone
+    const phoneRegex = /^(06|07)\d{8}$/;
+    if (!phoneRegex.test(customerInfo.phone)) {
+      setError('Veuillez entrer un numéro de téléphone valide sans espaces (10 chiffres commençant par 06 ou 07)');
+      setIsSubmitting(false);
+      return;
+    }
+  
     const orderData = {
       customer: customerInfo,
       order: {
@@ -35,7 +44,7 @@ export default function Paiement() {
       },
       timestamp: new Date().toISOString()
     };
-
+  
     try {
       const response = await fetch('http://localhost:5000/order', {
         method: 'POST',
@@ -44,13 +53,13 @@ export default function Paiement() {
         },
         body: JSON.stringify(orderData)
       });
-
+  
       const data = await response.json();
-
+  
       if (!response.ok) {
         throw new Error(data.message || 'Une erreur est survenue');
       }
-
+  
       // Redirection vers PayPal avec le montant total
       window.location.href = `https://paypal.me/fredlecoach/${total}`;
     } catch (err) {
@@ -119,6 +128,20 @@ export default function Paiement() {
                         onChange={handleInputChange}
                         required
                         disabled={isSubmitting}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="phone" className="form-label">N° de mobile</label>
+                      <input
+                        type="tel"
+                        className="form-control"
+                        id="phone"
+                        name="phone"
+                        value={customerInfo.phone}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isSubmitting}
+                        placeholder="06XXXXXXXX ou 07XXXXXXXX"
                       />
                     </div>
                   </div>
