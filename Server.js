@@ -40,7 +40,8 @@ app.post('/contact', (req, res) => {
   });
 });
 
-app.post('/order', async (req, res) => {
+// Endpoint pour les commandes
+app.post('/order', (req, res) => {
   const { customer, order } = req.body;
 
   console.log("Nouvelle commande reçue :", { customer, order });
@@ -51,8 +52,7 @@ app.post('/order', async (req, res) => {
     ).join('\n');
   };
 
-  // Email pour l'administrateur
-  const adminMailOptions = {
+  const mailOptionsAdmin = {
     from: process.env.EMAIL_USER,
     to: 'f.roblot.coulanges@gmail.com',
     subject: `Nouvelle commande de ${customer.prenom} ${customer.nom}`,
@@ -64,6 +64,7 @@ Informations client:
 Nom: ${customer.nom}
 Prénom: ${customer.prenom}
 Email: ${customer.email}
+Tel: ${customer.phone}
 
 Détails de la commande:
 ---------------------
@@ -72,55 +73,55 @@ ${formatItems(order.items)}
 Total: ${order.total}€
 
 Date de la commande: ${new Date().toLocaleString('fr-FR')}
-    `
+    `,
   };
 
   // Envoi de l'email à l'administrateur
-  transporter.sendMail(adminMailOptions, (err, info) => {
+  transporter.sendMail(mailOptionsAdmin, (err, info) => {
     if (err) {
-      console.error('Erreur lors de l\'envoi de la commande à l\'administrateur:', err);
+      console.error('Erreur lors de l\'envoi de la commande:', err);
       return res.status(500).json({ 
         success: false, 
-        message: "Erreur lors de l'envoi de la commande à l'administrateur." 
+        message: "Erreur lors de l'envoi de la commande, veuillez réessayer plus tard." 
       });
     }
 
     console.log('Commande envoyée à l\'administrateur:', info.response);
 
-    // Email pour le client
-    const clientMailOptions = {
+    // Envoi de l'email de confirmation au client
+    const mailOptionsClient = {
       from: process.env.EMAIL_USER,
       to: customer.email,
       subject: 'Confirmation de votre commande',
       text: `
-Merci pour votre commande !
+        Merci pour votre commande !
 
-Votre commande a bien été enregistrée et est en cours de traitement. Voici les détails :
---------------------------
-Nom : ${customer.prenom} ${customer.nom}
-Email : ${customer.email}
+        Votre commande a bien été enregistrée et est en cours de traitement. Voici les détails :
+        --------------------------
+        Nom : ${customer.prenom} ${customer.nom}
+        Email : ${customer.email}
 
-Détails de votre commande :
-${formatItems(order.items)}
+        Détails de votre commande :
+        ${formatItems(order.items)}
 
-Total : ${order.total}€
+        Total : ${order.total}€
 
-Date de la commande : ${new Date().toLocaleString('fr-FR')}
+        Date de la commande : ${new Date().toLocaleString('fr-FR')}
 
-Nous vous enverrons votre programme après vérification du paiement.
+        Nous vous enverrons votre programme après vérification du paiement.
 
-Cordialement,
-L'équipe
-      `,
+        Cordialement,
+        L'équipe
+              `,
     };
 
     // Envoi de l'email au client
-    transporter.sendMail(clientMailOptions, (err, info) => {
+    transporter.sendMail(mailOptionsClient, (err, info) => {
       if (err) {
-        console.error('Erreur lors de l\'envoi de l\'email de confirmation au client:', err);
+        console.error('Erreur lors de l\'envoi de l\'email de confirmation:', err);
         return res.status(500).json({ 
           success: false, 
-          message: "Erreur lors de l'envoi de l'email de confirmation au client." 
+          message: "Erreur lors de l'envoi de la confirmation au client." 
         });
       }
 
@@ -134,3 +135,4 @@ L'équipe
 });
 
 app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+
