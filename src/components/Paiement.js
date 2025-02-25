@@ -11,6 +11,8 @@ export default function Paiement() {
     prenom: '',
     email: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,8 +24,9 @@ export default function Paiement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
 
-    // envoyer les données au backend
     const orderData = {
       customer: customerInfo,
       order: {
@@ -33,11 +36,27 @@ export default function Paiement() {
       timestamp: new Date().toISOString()
     };
 
-    // Log the order data (replace with your actual backend call)
-    console.log('Order Data:', orderData);
+    try {
+      const response = await fetch('http://localhost:5000/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
+      });
 
-    // Redirection vers PayPal avec le montant total
-    window.location.href = `https://paypal.me/fredlecoach/${total}`;
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Une erreur est survenue');
+      }
+
+      // Redirection vers PayPal avec le montant total
+      window.location.href = `https://paypal.me/fredlecoach/${total}`;
+    } catch (err) {
+      setError(err.message || 'Une erreur est survenue lors de l\'envoi de la commande');
+      setIsSubmitting(false);
+    }
   };
 
   if (!panier || panier.length === 0) {
@@ -53,6 +72,12 @@ export default function Paiement() {
             <div className="card-body p-5">
               <h2 className="card-title text-center mb-4">Finaliser votre commande</h2>
               
+              {error && (
+                <div className="alert alert-danger" role="alert">
+                  {error}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit}>
                 <div className="row g-3">
                   <div className="col-md-6">
@@ -67,6 +92,7 @@ export default function Paiement() {
                         value={customerInfo.nom}
                         onChange={handleInputChange}
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div className="mb-3">
@@ -79,6 +105,7 @@ export default function Paiement() {
                         value={customerInfo.prenom}
                         onChange={handleInputChange}
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div className="mb-3">
@@ -91,6 +118,7 @@ export default function Paiement() {
                         value={customerInfo.email}
                         onChange={handleInputChange}
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -116,8 +144,12 @@ export default function Paiement() {
                 </div>
 
                 <div className="text-center mt-4">
-                  <button type="submit" className="btn btn-primary btn-lg">
-                    Payer avec PayPal
+                  <button 
+                    type="submit" 
+                    className="btn btn-primary btn-lg"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Traitement en cours...' : 'Payer avec PayPal'}
                   </button>
                 </div>
               </form>

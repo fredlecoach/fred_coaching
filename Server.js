@@ -1,4 +1,4 @@
-require('dotenv').config(); // Charger les variables d'environnement
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
@@ -9,12 +9,11 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Utiliser les variables d'environnement
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL_USER, // Utilisation de la variable d'environnement
-    pass: process.env.EMAIL_PASS, // Utilisation de la variable d'environnement
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -23,7 +22,6 @@ app.post('/contact', (req, res) => {
 
   console.log("Message reçu :", { nom, email, message });
 
-  // Création du mail à envoyer
   const mailOptions = {
     from: email,
     to: 'f.roblot.coulanges@gmail.com',
@@ -39,6 +37,58 @@ app.post('/contact', (req, res) => {
 
     console.log('Message envoyé:', info.response);
     res.status(200).json({ success: true, message: "Message envoyé avec succès !" });
+  });
+});
+
+// Nouvel endpoint pour les commandes
+app.post('/order', (req, res) => {
+  const { customer, order } = req.body;
+
+  console.log("Nouvelle commande reçue :", { customer, order });
+
+  const formatItems = (items) => {
+    return items.map(item => 
+      `- ${item.name}: ${item.tarif}€ x ${item.quantite} = ${item.tarif * item.quantite}€`
+    ).join('\n');
+  };
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: 'f.roblot.coulanges@gmail.com',
+    subject: `Nouvelle commande de ${customer.prenom} ${customer.nom}`,
+    text: `
+Nouvelle commande:
+
+Informations client:
+------------------
+Nom: ${customer.nom}
+Prénom: ${customer.prenom}
+Email: ${customer.email}
+
+Détails de la commande:
+---------------------
+${formatItems(order.items)}
+
+Total: ${order.total}€
+
+Date de la commande: ${new Date().toLocaleString('fr-FR')}
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error('Erreur lors de l\'envoi de la commande:', err);
+      return res.status(500).json({ 
+        success: false, 
+        message: "Erreur lors de l'envoi de la commande, veuillez réessayer plus tard." 
+      });
+    }
+
+    console.log('Commande envoyée:', info.response);
+    res.status(200).json({ 
+      success: true, 
+      message: "Commande enregistrée avec succès!" 
+    });
   });
 });
 
