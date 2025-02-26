@@ -45,9 +45,6 @@ export default function Footer() {
               <li><a href="#cgu" className="text-decoration-none text-dark">CGU</a></li>
               <li><a href="#cgv" className="text-decoration-none text-dark">CGV</a></li>
               <li><a href="#privacy-policy" className="text-decoration-none text-dark">Politique de confidentialité</a></li>
-              <li >
-                <Link to="/paiement" className="text-decoration-none text-dark">Paiement</Link>
-              </li>
             </ul>
           </div>
         </div>

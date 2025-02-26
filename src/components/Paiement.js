@@ -73,7 +73,7 @@ export default function Paiement() {
 
   if (!panier || panier.length === 0) {
     navigate('/panier');
-    return null;
+    return ;
   }
 
   return (
