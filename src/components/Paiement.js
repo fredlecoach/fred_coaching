@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import paypal from "../styles/images/paypal-3.svg";
+import "../styles/css/Paiement.css"
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -163,17 +165,23 @@ export default function Paiement() {
                         <div className="h5 mb-0">Total: {total}€</div>
                       </div>
                     </div>
+                    <div className='text-center mt-5'>
+                      <img src= {paypal} alt='logo paypal' className='w-50' />
+                    </div>
                   </div>
                 </div>
 
-                <div className="text-center mt-4">
+                <div className="d-flex justify-content-center mt-4">
                   <button 
                     type="submit" 
-                    className="btn btn-primary btn-lg"
+                    className="btn btn-lg fw-bold d-flex align-items-center justify-content-center btn-paypal"
+                    style={{  boxShadow: "10px 5px 1px #ecba2c" }}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Traitement en cours...' : 'Payer avec PayPal'}
+                    {isSubmitting ? 'Traitement en cours...' : 'Payer avec '} 
+                    <img src={paypal} alt="PayPal" height="20" className="ms-2" />
                   </button>
+
                 </div>
               </form>
             </div>
