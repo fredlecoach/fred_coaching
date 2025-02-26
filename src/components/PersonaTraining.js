@@ -36,7 +36,7 @@ export default function PersonalTraining(  { addCart, prestation} ) {
       {/* Titre principal */}
       <div className="text-center mb-5">
         <h2 className="display-4 fw-bold" style={{color: "#dec950"}}>Home Coaching <i className="bi bi-house-door-fill"></i></h2>
-        <p className="lead">Un coaching sur-mesure, directement chez toi ou sur le lieu de ton choix !</p>
+        <p className="lead">Forfait de 20 séances (1300€) : un coaching sur-mesure, directement chez toi ou sur le lieu de ton choix !</p>
       </div>
 
       {/* Étapes du coaching */}

@@ -32,7 +32,7 @@ export default function ECoaching( {addCart, prestation} ) {
       {/* Titre principal */}
       <div className="text-center mb-5">
         <h2 className="display-4 fw-bold text-primary">E-coaching <i className="bi bi-laptop"></i></h2>
-        <p className="lead">Un accompagnement sur-mesure, où que tu sois !</p>
+        <p className="lead">120€ / mois : un accompagnement à distance sur-mesure ! </p>
       </div>
 
       {/* Étapes du coaching */}
@@ -127,7 +127,7 @@ export default function ECoaching( {addCart, prestation} ) {
         </div>
       </div>
       <div className="d-flex justify-content-center my-5">
-        <button className="btn btn-dark py-3 px-4" onClick={ ()=> { addCart(prestation); alert(' "E-coaching" a été ajouté au panier')  }   }>ajouter au panier <i className="bi bi-caret-right"></i> 120 €</button>
+        <button className="btn btn-dark py-3 px-4" onClick={ ()=> { addCart(prestation); alert(' "E-coaching" a été ajouté au panier')  }   }>ajouter au panier <i className="bi bi-caret-right"></i> 120 € / mois</button>
       </div>
       <hr/>
       <div className="d-flex d-inline-block mt-5">
