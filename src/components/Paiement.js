@@ -14,7 +14,8 @@ export default function Paiement() {
     nom: '',
     prenom: '',
     email: '',
-    phone: ''
+    phone: '',
+    adresse:''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -146,6 +147,20 @@ export default function Paiement() {
                         placeholder="06XXXXXXXX ou 07XXXXXXXX"
                       />
                     </div>
+                    <div className="mb-3">
+                      <label htmlFor="adresse" className="form-label">Adresse complète</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="adresse"
+                        name="adresse"
+                        value={customerInfo.adresse}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isSubmitting}
+                        placeholder="ex : 8 rue de la paix, 75001 Paris"
+                      />
+                    </div>
                   </div>
 
                   <div className="col-md-6">
@@ -175,7 +190,7 @@ export default function Paiement() {
                   <button 
                     type="submit" 
                     className="btn btn-lg fw-bold d-flex align-items-center justify-content-center btn-paypal"
-                    style={{  boxShadow: "10px 5px 1px #ecba2c" }}
+                    style={{ boxShadow: "10px 5px 1px #ecba2c" }}
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? 'Traitement en cours...' : 'Payer avec '} 

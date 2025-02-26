@@ -65,6 +65,7 @@ Nom: ${customer.nom}
 Prénom: ${customer.prenom}
 Email: ${customer.email}
 Tel: ${customer.phone}
+Adresse: ${customer.adresse}
 
 Détails de la commande:
 ---------------------
