@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 export default function Paiement() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,7 +30,6 @@ export default function Paiement() {
     setIsSubmitting(true);
     setError('');
   
-    // Vérification du numéro de téléphone
     const phoneRegex = /^(06|07)\d{8}$/;
     if (!phoneRegex.test(customerInfo.phone)) {
       setError('Veuillez entrer un numéro de téléphone valide sans espaces (10 chiffres commençant par 06 ou 07)');
@@ -46,7 +47,7 @@ export default function Paiement() {
     };
   
     try {
-      const response = await fetch('http://localhost:5000/order', {
+      const response = await fetch(`${API_URL}/order`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +61,6 @@ export default function Paiement() {
         throw new Error(data.message || 'Une erreur est survenue');
       }
   
-      // Redirection vers PayPal avec le montant total
       window.location.href = `https://paypal.me/fredlecoach/${total}`;
     } catch (err) {
       setError(err.message || 'Une erreur est survenue lors de l\'envoi de la commande');
