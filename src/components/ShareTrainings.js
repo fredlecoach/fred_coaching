@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export const ShareTrainingButton = ({ trainingName, training }) => {
   const [copied, setCopied] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const generateShareLink = () => {
     // Encoder les données de l'entraînement
@@ -18,28 +19,54 @@ export const ShareTrainingButton = ({ trainingName, training }) => {
 
   const handleShare = async () => {
     const shareLink = generateShareLink();
+    
+    // Créer un texte d'ancrage HTML pour les emails
+    const anchorHtml = `<a href="${shareLink}">Programme partagé: ${trainingName}</a>`;
+    const plainTextLink = `Programme partagé: ${trainingName} - ${shareLink}`;
 
     try {
-      // Copier le lien dans le presse-papiers
-      await navigator.clipboard.writeText(shareLink);
-      setCopied(true);
+      // On essaie d'abord de copier le HTML (pour les emails)
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          'text/html': new Blob([anchorHtml], { type: 'text/html' }),
+          'text/plain': new Blob([plainTextLink], { type: 'text/plain' })
+        })
+      ]);
       
-      // Réinitialiser l'état "copié" après 3 secondes
+      setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch (err) {
-      console.error('Erreur lors de la copie du lien', err);
-      alert('Impossible de copier le lien');
+      // Fallback si l'API ClipboardItem n'est pas supportée
+      try {
+        await navigator.clipboard.writeText(plainTextLink);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+      } catch (fallbackErr) {
+        console.error('Erreur lors de la copie du lien', fallbackErr);
+        alert('Impossible de copier le lien');
+      }
     }
   };
 
   return (
-    <button 
-      onClick={handleShare} 
-      className="btn btn-info ms-2"
-      title="Partager l'entraînement"
-    >
-      {copied ? 'Lien copié !' : <i className="bi bi-share"></i>}
-    </button>
+    <div className="d-inline-block position-relative">
+      <button 
+        onClick={handleShare} 
+        className="btn btn-info ms-2"
+        title="Partager l'entraînement"
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+      >
+        {copied ? 'Lien copié !' : <i className="bi bi-share"></i>}
+      </button>
+      
+      {showTooltip && !copied && (
+        <div className="position-absolute bg-dark text-white p-2 rounded" 
+          style={{ zIndex: 100, bottom: '100%', left: '50%', transform: 'translateX(-50%)', width: 'max-content' }}>
+          Copier "Programme partagé: {trainingName}"
+        </div>
+      )}
+    </div>
   );
 };
 
