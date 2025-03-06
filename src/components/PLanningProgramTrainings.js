@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import trainingsImage from "../styles/images/mesProgrammes.jpg";
 import '../styles/css/PlanningProgram.css';
+import { ShareTrainingButton } from "./ShareTrainings";
 
 export default function PlanningProgram({
   persoTrainings,
@@ -377,6 +378,10 @@ export default function PlanningProgram({
                   >
                     Supprimer le programme
                   </button>
+                  
+                  {/* partager programmes */}
+                  <ShareTrainingButton trainingName={trainingName} training={training} />
+
                 </div>
 
                 <ul className="list-unstyled">

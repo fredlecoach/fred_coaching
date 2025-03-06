@@ -16,6 +16,7 @@ import Contact from './Contact';
 import PlanningProgram from './PLanningProgramTrainings';
 import { programmes, debutantProgram, intermediaireProgram, avanceProgram, expertProgram } from '../utils/Programmes';
 import Paiement from './Paiement';
+import { SharedTrainingReceiver } from './ShareTrainings';
 
 function App() {
   const [panier, setPanier] = useState([]);
@@ -155,6 +156,9 @@ function App() {
         } />
         <Route path='/contact' element={<Contact />} />
         <Route path='/paiement' element={ <Paiement />} />
+        <Route path='/shared-training' element= { <SharedTrainingReceiver />} />
+
+
       </Routes>
       <Footer />
     </Router>
