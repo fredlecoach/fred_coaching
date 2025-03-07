@@ -216,16 +216,17 @@ export const SharedTrainingReceiver = () => {
           <h3>Entraînement partagé</h3>
         </div>
         <div className="card-body">
-          <h4 className="card-title text-primary">{sharedTraining.name}</h4>
           
           {sharedTraining.image && (
             <img 
-              src={sharedTraining.image} 
-              alt="Programme" 
-              className="img-fluid mb-3 rounded"
-              style={{ maxHeight: '300px', objectFit: 'cover' }}
+            src={sharedTraining.image} 
+            alt="Programme" 
+            className="img-fluid mb-3  w-100 object-fit-cover"
+            // style={{ maxHeight: '300px', objectFit: 'cover' }}
             />
           )}
+          {/* nom de l'entraînement */}
+          <h4 className="card-title text-primary text-uppercase">{sharedTraining.name}</h4>
 
           <h5>Exercices :</h5>
           {sharedTraining.exercices && sharedTraining.exercices.length > 0 ? (
@@ -234,10 +235,22 @@ export const SharedTrainingReceiver = () => {
                 <li key={index} className="list-group-item">
                   <div>
                     <strong className="text-uppercase d-flex flex-grow-1" style={{color:"#cd00ff"}}>{exercice.name}</strong>
-                    <span style={{color: "#be8a23"}}>Séries : {exercice.series} </span>
-                    <span className="text-primary d-flex flex-grow-1">Répétitions : {exercice.repetitions} </span>
-                    <span className="d-flex flex-grow-1">{exercice.poids && `Charge de travail : ${exercice.poids} `}</span>
-                    <span style={{color: "#519718"}} className="d-flex flex-grow-1">{exercice.recuperation && ` Récup : ${exercice.recuperation}`}</span>
+                    <span style={{color: "#be8a23"}}><strong>Séries : </strong>{exercice.series} </span>
+                    <span className="text-primary d-flex flex-grow-1"><strong style={{marginRight: "10px"}}>Répétitions :</strong> {exercice.repetitions} </span>
+                    <span className="d-flex flex-grow-1" style={{ color: "#cd0871" }}>
+                      {exercice.poids && (
+                        <>
+                          <strong style={{marginRight: "10px"}}>Charge de travail :</strong> {exercice.poids}
+                        </>
+                      )}
+                    </span>
+
+                    <span style={{color: "#519718"}} className="d-flex flex-grow-1">{exercice.recuperation && (
+                      <>
+                      <strong style={{marginRight: "10px"}}>Récup :</strong> {exercice.recuperation}
+                      </>
+                      )}
+                    </span>
                   </div>
                 </li>
               ))}

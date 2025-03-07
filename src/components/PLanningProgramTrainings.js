@@ -391,10 +391,20 @@ export default function PlanningProgram({
                         <div className="d-flex justify-content-between align-items-center">
                           <div>
                             <strong className="text-uppercase d-flex flex-grow-1" style={{color:"#cd00ff"}}>{exercice.name}</strong>
-                            <span style={{color: "#be8a23"}}>Séries : {exercice.series} </span>
-                            <span className="text-primary d-flex flex-grow-1">Répétitions : {exercice.repetitions} </span>
-                            <span className="d-flex flex-grow-1">{exercice.poids && `Charge de travail : ${exercice.poids} `}</span>
-                            <span style={{color: "#519718"}} className="d-flex flex-grow-1">{exercice.recuperation && ` Récup : ${exercice.recuperation}`}</span>
+                            <span style={{color: "#be8a23"}}><strong>Séries :</strong> {exercice.series} </span>
+                            <span className="text-primary d-flex flex-grow-1"><strong style={{marginRight: "10px"}}>Répétitions : </strong>  {exercice.repetitions} </span>
+                            <span className="d-flex flex-grow-1" style={{ color: "#cd0871" }}>
+                              {exercice.poids && (
+                                <>
+                                  <strong style={{marginRight: "10px"}}>Charge de travail : </strong> {exercice.poids}
+                                </>
+                              )}
+                            </span>
+                            <span style={{color: "#519718"}} className="d-flex flex-grow-1">{exercice.recuperation && (
+                              <>
+                              <strong style={{marginRight: "10px"}}>Récup : </strong> {exercice.recuperation}
+                              </>
+                            )}</span>
                           </div>
                           <div>
                             <button 
