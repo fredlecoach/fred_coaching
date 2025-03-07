@@ -222,7 +222,7 @@ export const SharedTrainingReceiver = () => {
             src={sharedTraining.image} 
             alt="Programme" 
             className="img-fluid mb-3  w-100 object-fit-cover"
-            // style={{ maxHeight: '300px', objectFit: 'cover' }}
+            style={{height: "400px"}}
             />
           )}
           {/* nom de l'entraînement */}
