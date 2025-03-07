@@ -374,7 +374,7 @@ export default function PlanningProgram({
                   )}
                   <button 
                     onClick={() => handleDeleteTraining(trainingName)} 
-                    className="btn btn-danger"
+                    className="btn btn-danger mx-1"
                   >
                     Supprimer le programme
                   </button>
@@ -406,15 +406,15 @@ export default function PlanningProgram({
                               </>
                             )}</span>
                           </div>
-                          <div>
+                          <div className="d-flex flex-column">
                             <button 
-                              className="btn btn-warning btn-sm me-2"
+                              className="btn btn-warning btn-sm mb-2"
                               onClick={() => startEditingExercice(trainingName, exercice, index)}
                             >
                               <i className="bi bi-pencil"></i>
                             </button>
                             <button 
-                              className="btn btn-danger btn-sm"
+                              className="btn btn-danger btn-sm mb-2"
                               onClick={() => deleteExercice(trainingName, index)}
                             >
                               <i className="bi bi-trash"></i>
