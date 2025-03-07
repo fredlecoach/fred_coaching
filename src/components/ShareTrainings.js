@@ -232,12 +232,12 @@ export const SharedTrainingReceiver = () => {
             <ul className="list-group">
               {sharedTraining.exercices.map((exercice, index) => (
                 <li key={index} className="list-group-item">
-                  <strong style={{color:"#cd00ff"}}>{exercice.name}</strong>
-                  <div className="text-muted">
-                    <span style={{color: "#be8a23"}}>Séries : {exercice.series}</span>  | 
-                    <span className='text-primary'>Répétitions : {exercice.repetitions}</span> | 
-                    Charge de travail : {exercice.poids} |
-                    <span style={{color: "#519718"}}>Récupération : {exercice.recuperation}</span>
+                  <div>
+                    <strong className="text-uppercase d-flex flex-grow-1" style={{color:"#cd00ff"}}>{exercice.name}</strong>
+                    <span style={{color: "#be8a23"}}>Séries : {exercice.series} </span>
+                    <span className="text-primary d-flex flex-grow-1">Répétitions : {exercice.repetitions} </span>
+                    <span className="d-flex flex-grow-1">{exercice.poids && `Charge de travail : ${exercice.poids} `}</span>
+                    <span style={{color: "#519718"}} className="d-flex flex-grow-1">{exercice.recuperation && ` Récup : ${exercice.recuperation}`}</span>
                   </div>
                 </li>
               ))}
