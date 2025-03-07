@@ -372,12 +372,12 @@ export default function PlanningProgram({
                       </button>
                     </div>
                   )}
-                  <button 
+                  {/* <button 
                     onClick={() => handleDeleteTraining(trainingName)} 
                     className="btn btn-danger mx-1"
                   >
-                    Supprimer le programme
-                  </button>
+                    Programme <i className="bi bi-trash"></i>
+                  </button> */}
                   
                   {/* partager programmes */}
                   <ShareTrainingButton trainingName={trainingName} training={training} />
@@ -432,9 +432,18 @@ export default function PlanningProgram({
                     className="btn btn-success mt-3"
                     onClick={() => setEditingTraining(trainingName)}
                   >
-                    Ajouter un exercice
+                    Ajouter un exercice +
                   </button>
                 )}
+
+                <div className="">
+                  <button 
+                    onClick={() => handleDeleteTraining(trainingName)} 
+                    className="btn btn-danger mt-3"
+                  >
+                    Programme <i className="bi bi-trash"></i>
+                  </button>
+                </div>
 
                 {editingTraining === trainingName && editingExercice === null && renderExerciceForm(trainingName)}
               </div>
