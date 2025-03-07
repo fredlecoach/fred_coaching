@@ -199,16 +199,18 @@ export const SharedTrainingReceiver = () => {
     );
   }
 
+  // rendu si programme n'est pas partagé
   if (!sharedTraining) {
     return (
-      <div className="container mt-4">
+      <div className="container my-4">
         <div className="alert alert-info">Aucun entraînement à partager</div>
       </div>
     );
   }
 
+  // rendu si le programmme est partagé
   return (
-    <div className="container mt-4">
+    <div className="container my-4">
       <div className="card">
         <div className="card-header bg-primary text-white">
           <h3>Entraînement partagé</h3>
@@ -230,11 +232,12 @@ export const SharedTrainingReceiver = () => {
             <ul className="list-group">
               {sharedTraining.exercices.map((exercice, index) => (
                 <li key={index} className="list-group-item">
-                  <strong>{exercice.name}</strong>
+                  <strong style={{color:"#cd00ff"}}>{exercice.name}</strong>
                   <div className="text-muted">
-                    Séries : {exercice.series} | 
-                    Répétitions : {exercice.repetitions} | 
-                    Récupération : {exercice.recuperation}
+                    <span style={{color: "#be8a23"}}>Séries : {exercice.series}</span>  | 
+                    <span className='text-primary'>Répétitions : {exercice.repetitions}</span> | 
+                    Charge de travail : {exercice.poids} |
+                    <span style={{color: "#519718"}}>Récupération : {exercice.recuperation}</span>
                   </div>
                 </li>
               ))}
