@@ -109,6 +109,12 @@ export default function PlanningProgram({
 
   const handleChangeExercice = (e) => {
     const { name, value } = e.target;
+    
+      // Vérification pour empêcher les valeurs négatives
+      if ((name === "series" || name === "repetitions") && (value < 0 || isNaN(value))) {
+        return;
+      }
+
     setExerciceForm({
       ...exerciceForm,
       [name]: value,
@@ -204,6 +210,7 @@ export default function PlanningProgram({
           value={exerciceForm.series}
           onChange={handleChangeExercice}
           className="form-control"
+          min="0"
           required
         />
       </div>

@@ -9,7 +9,7 @@ import Intermediaire from './Intermediaire';
 import Avance from './Avance';
 import Expert from './Expert';
 import ECoaching from './E-Coaching';
-import PersonalTraining from './PersonaTraining';
+import PersonalTraining from './PersonalTraining';
 import Tarifs from './Tarifs';
 import Panier from './Panier';
 import Contact from './Contact';
